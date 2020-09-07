@@ -25,7 +25,7 @@
 
         <docker.image.repository>fraunhoferiosb/chillimport</docker.image.repository>
 
-        <frost-client.version>0.26</frost-client.version>
+        <frost-client.version>0.32</frost-client.version>
         <poi-ooxml.version>4.1.2</poi-ooxml.version>
         <bootstrap.version>4.5.2</bootstrap.version>
         <jquery.version>3.5.1</jquery.version>
