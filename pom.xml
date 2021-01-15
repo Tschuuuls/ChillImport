@@ -33,7 +33,7 @@
         <bootstrap.version>4.5.3</bootstrap.version>
         <jquery.version>3.5.1</jquery.version>
         <select2.version>4.0.13</select2.version>
-        <fontawesome.version>5.15.1</fontawesome.version>
+        <fontawesome.version>5.15.2</fontawesome.version>
         <material-icons.version>0.3.1</material-icons.version>
         <popper.version>2.5.4</popper.version>
 
