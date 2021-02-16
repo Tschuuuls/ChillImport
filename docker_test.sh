@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-docker run -d -p 8000:8000 fraunhoferiosb/chillimport:"$TAG"
+echo "Starting ChillImport using '$GITHUB_SHA'..."
+
+docker run -d -p 8000:8000 fraunhoferiosb/chillimport:"$GITHUB_SHA"
 sleep 10
 printf "Chillimport started \n"
 

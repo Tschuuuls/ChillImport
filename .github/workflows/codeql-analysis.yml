@@ -34,6 +34,14 @@ jobs:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
 
     steps:
+    - name: Cache maven repository
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ matrix.language }}
+        restore-keys: ${{ runner.os }}-maven-${{ matrix.language }}
+
     - name: Checkout repository
       uses: actions/checkout@v2
 

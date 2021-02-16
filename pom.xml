@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.chillimport</groupId>
-    <artifactId>server</artifactId>
+    <groupId>de.fraunhofer.iosb.ilt</groupId>
+    <artifactId>chillimport</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>server</name>
+    <name>ChillImport Server</name>
     <description>project</description>
 
     <parent>
@@ -184,7 +184,7 @@
                             <goal>tag</goal>
                         </goals>
                         <configuration>
-                            <tag>${env.TAG}</tag>
+                            <tag>${env.DOCKER_TAG}</tag>
                         </configuration>
                     </execution>
                     <execution>
@@ -194,7 +194,7 @@
                             <goal>tag</goal>
                         </goals>
                         <configuration>
-                            <tag>${env.TRAVIS_COMMIT}</tag>
+                            <tag>${env.GIT_COMMIT_SHA}</tag>
                         </configuration>
                     </execution>
                     <execution>
@@ -214,7 +214,7 @@
                             <goal>push</goal>
                         </goals>
                         <configuration>
-                            <tag>${env.TAG}</tag>
+                            <tag>${env.DOCKER_TAG}</tag>
                         </configuration>
                     </execution>
                     <execution>
@@ -224,7 +224,7 @@
                             <goal>push</goal>
                         </goals>
                         <configuration>
-                            <tag>${env.TRAVIS_COMMIT}</tag>
+                            <tag>${env.GIT_COMMIT_SHA}</tag>
                         </configuration>
                     </execution>
                     <execution>
@@ -257,7 +257,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>org.apache.commons:commons-collections4</exclude>
