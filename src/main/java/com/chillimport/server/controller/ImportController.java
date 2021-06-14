@@ -119,7 +119,6 @@ public class ImportController {
         }
 
         File file = fileManager.load(filename).toFile();
-
         try {
             firstThreeRowsOfTable = UploadHandler.preview(file, sampleConfig);
         } catch (IOException e) {

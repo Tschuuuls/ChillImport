@@ -91,7 +91,7 @@ public class FileManager {
    * @param filename the file to load
    * @return the file
    */
-  public Path load(String filename) { return getFilesPath().resolve(filename.replaceAll("\\.", "").replaceAll("/", "")); }
+  public Path load(String filename) { return getFilesPath().resolve(filename.replaceAll("/", "")); }
 
   /**
    * Downloads a file from an internet server, stores it in temporary files and
@@ -204,7 +204,7 @@ public class FileManager {
     try {
       if (FILES_PATH == null) {
         FILES_PATH = Files.createTempDirectory("tempuploads_");
-        // FILES_PATH.toFile().deleteOnExit();
+        // FILES_PATH.toFile().deleteOnExit(); //TODO: Delete directories on exit
       }
     } catch (IOException e) {
       LogManager.getInstance().writeToLog(
@@ -251,6 +251,7 @@ public class FileManager {
     if (FILES_PATH == null) {
       try {
         FileManager.FILES_PATH = Files.createTempDirectory("tempuploads_");
+
       } catch (IOException e) {
         LogManager.getInstance().writeToLog(
             "Could not create temporary directory", true);
