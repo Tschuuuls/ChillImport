@@ -34,7 +34,7 @@
         <jquery.version>3.6.0</jquery.version>
         <select2.version>4.0.13</select2.version>
         <fontawesome.version>5.15.3</fontawesome.version>
-        <material-icons.version>0.7.1</material-icons.version>
+        <material-icons.version>0.7.0</material-icons.version>
         <popper.version>1.16.1-lts</popper.version>
 
         <powermock.version>2.0.9</powermock.version>
