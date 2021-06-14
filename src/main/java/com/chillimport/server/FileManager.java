@@ -91,7 +91,7 @@ public class FileManager {
    * @param filename the file to load
    * @return the file
    */
-  public Path load(String filename) { return getFilesPath().resolve(filename.replaceAll("/", "")); }
+  public Path load(String filename) { return getFilesPath().resolve(filename.replaceAll("\\.\\.", "").replaceAll("/", "")); }
 
   /**
    * Downloads a file from an internet server, stores it in temporary files and
@@ -115,11 +115,11 @@ public class FileManager {
         LogManager.getInstance().getDate().replaceAll("\\.", "_") + '.' +
         ending;
 
-    File file = new File(getFilesPath().toString() + sep + randomFilename.replaceAll("\\.", "").replaceAll("/", ""));
+    File file = new File(getFilesPath().toString() + sep + randomFilename.replaceAll("\\.\\.", "").replaceAll("/", ""));
 
     try {
       Files.deleteIfExists(
-          Paths.get(getFilesPath().toString() + sep + randomFilename.replaceAll("\\.", "").replaceAll("/", "")));
+          Paths.get(getFilesPath().toString() + sep + randomFilename.replaceAll("\\.\\.", "").replaceAll("/", "")));
     } catch (IOException e) {
       // Der Fehler wird später noch eine Exception werfen also kan man hier
       // ignorieren
