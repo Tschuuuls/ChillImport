@@ -153,7 +153,7 @@ public class FileManager {
   public Resource download(String filename) throws FileStorageException {
 
     File file = new File(FileManager.getLogPath().toString() + sep +
-                         "returnRows" + sep + filename.replaceAll("/", ""));
+                         "returnRows" + sep + filename.replaceAll("\\.\\.", "").replaceAll("/", ""));
     Resource resource = new FileSystemResource(file.getAbsoluteFile());
 
     if (resource.exists()) {
