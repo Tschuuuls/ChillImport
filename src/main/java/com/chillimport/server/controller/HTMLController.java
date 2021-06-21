@@ -150,7 +150,8 @@ public class HTMLController {
   @ResponseBody
   public ResponseEntity delFile(@RequestParam String name) {
     File file = new File(FileManager.getLogPath() + File.separator +
-                         "returnRows" + File.separator + name.replaceAll("\\.\\.", "").replaceAll("/", ""));
+                         "returnRows" + File.separator +
+                         name.replaceAll("\\.\\.", "").replaceAll("/", ""));
     if (!file.delete()) {
       return new ResponseEntity("Could not delete File",
                                 HttpStatus.INTERNAL_SERVER_ERROR);
