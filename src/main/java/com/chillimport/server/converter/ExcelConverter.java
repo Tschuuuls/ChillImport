@@ -82,7 +82,7 @@ public class ExcelConverter implements Converter {
                 rowList.add(new com.chillimport.server.Cell());
             }
             else {
-                CellType cellType = cell.getCellTypeEnum();
+                CellType cellType = cell.getCellType();
                 switch (cellType) {
                     case _NONE:
                         rowList.add(new com.chillimport.server.Cell());

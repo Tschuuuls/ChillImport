@@ -91,7 +91,7 @@ public class FileManager {
    * @param filename the file to load
    * @return the file
    */
-  public Path load(String filename) { return getFilesPath().resolve(filename.replaceAll("\\.", "").replaceAll("/", "")); }
+  public Path load(String filename) { return getFilesPath().resolve(filename.replaceAll("\\.\\.", "").replaceAll("/", "")); }
 
   /**
    * Downloads a file from an internet server, stores it in temporary files and
@@ -115,11 +115,11 @@ public class FileManager {
         LogManager.getInstance().getDate().replaceAll("\\.", "_") + '.' +
         ending;
 
-    File file = new File(getFilesPath().toString() + sep + randomFilename.replaceAll("\\.", "").replaceAll("/", ""));
+    File file = new File(getFilesPath().toString() + sep + randomFilename.replaceAll("\\.\\.", "").replaceAll("/", ""));
 
     try {
       Files.deleteIfExists(
-          Paths.get(getFilesPath().toString() + sep + randomFilename.replaceAll("\\.", "").replaceAll("/", "")));
+          Paths.get(getFilesPath().toString() + sep + randomFilename.replaceAll("\\.\\.", "").replaceAll("/", "")));
     } catch (IOException e) {
       // Der Fehler wird später noch eine Exception werfen also kan man hier
       // ignorieren
@@ -153,7 +153,7 @@ public class FileManager {
   public Resource download(String filename) throws FileStorageException {
 
     File file = new File(FileManager.getLogPath().toString() + sep +
-                         "returnRows" + sep + filename.replaceAll("\\.", "").replaceAll("/", ""));
+                         "returnRows" + sep + filename.replaceAll("\\.\\.", "").replaceAll("/", ""));
     Resource resource = new FileSystemResource(file.getAbsoluteFile());
 
     if (resource.exists()) {
@@ -204,7 +204,7 @@ public class FileManager {
     try {
       if (FILES_PATH == null) {
         FILES_PATH = Files.createTempDirectory("tempuploads_");
-        // FILES_PATH.toFile().deleteOnExit();
+        // FILES_PATH.toFile().deleteOnExit(); //TODO: Delete directories on exit
       }
     } catch (IOException e) {
       LogManager.getInstance().writeToLog(
@@ -251,6 +251,7 @@ public class FileManager {
     if (FILES_PATH == null) {
       try {
         FileManager.FILES_PATH = Files.createTempDirectory("tempuploads_");
+
       } catch (IOException e) {
         LogManager.getInstance().writeToLog(
             "Could not create temporary directory", true);
