@@ -212,8 +212,9 @@ public class FileManager {
     try {
       if (FILES_PATH == null) {
         FILES_PATH = Files.createTempDirectory("tempuploads_");
-        
-        // FILES_PATH.toFile().deleteOnExit(); //TODO: Delete directories on exit
+
+        // FILES_PATH.toFile().deleteOnExit(); //TODO: Delete directories on
+        // exit
       }
     } catch (IOException e) {
       LogManager.getInstance().writeToLog(

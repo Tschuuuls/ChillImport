@@ -202,7 +202,7 @@ public class ImportController {
       }
       currentUploadHandler.upload(file, cfg);
       //"Was kann schon schiefgehen?" sagte er und catchte an einem Punkt 200
-      //Exceptions
+      // Exceptions
     } catch (URISyntaxException e) {
       String msg = "Server address malformed (URISyntaxException).";
       logManager.writeToLog(msg, true);
