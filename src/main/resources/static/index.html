@@ -4,30 +4,33 @@
     <title>CHILLImport</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
+
+    <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="/webjars/select2/css/select2.min.css"/>
-    <link rel="stylesheet" href="/webjars/material-icons/css/material-icons.min.css">
-    <link rel="stylesheet" href="/webjars/material-icons/iconfont/material-icons.css">
-    <link rel="stylesheet" href="/webjars/font-awesome/css/all.css">
+    <link rel="stylesheet" href="/webjars/material-icons/css/material-icons.min.css"/>
+    <link rel="stylesheet" href="/webjars/material-icons/iconfont/material-icons.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/css/all.css"/>
+    <link rel="stylesheet" href="/webjars/polipop/dist/css/polipop.core.min.css"/>
+    <link rel="stylesheet" href="/webjars/polipop/dist/css/polipop.default.min.css"/>
 
-    <script type="text/javascript" src="/webjars/popper.js/umd/popper.min.js"></script>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/popper.js/umd/popper.min.js"></script>
     <script type="text/javascript" src="/webjars/select2/js/select2.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="webjars/polipop/dist/polipop.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body onload="main()" style="overflow-x: hidden">
 <div class="container-fluid">
     <div class="row" style="height: 70px; width: 100%">
-        <img src="images/logo.png" style="height: 100%; padding-left: 20px">
+        <img src="images/logo.png" style="height: 100%; width: auto; padding-left: 20px">
     </div>
 </div>
 
 <!-- navbar -->
 <div class="mynavbar" style="height: 60px; background-color: darkblue">
     <div class="column" align="left" style="width: 25%">
-
     </div>
     <div class="column" style="width: 25%; height: 100%; color: white; padding-top: 10px">
         <p style="margin: 0px">Connected to:</p>
@@ -64,9 +67,9 @@
                                 <input type="radio" name="source" value="uploadUrl()" onclick="sourcesite()">Website
                             </form>
                         </div>
-                        <div id="chooseSource" class="topspace">
+                        <div id="chooseSourceURL" class="topspace">
                             <div class="column" style="width: 80%">
-                                <label id="sourcetext"/>Choose Source File:</label><br>
+                                <label id="sourcetext">Choose Source File:</label><br>
                                 <input id="sourceinput" type='text' style="display:none"
                                        onkeyup="checkinputurl()">
                                 <form id="uploader" method='post' enctype="multipart/form-data">
@@ -76,8 +79,8 @@
                             </div>
 
                             <div class="column" style="width: 20%; margin-top: 60px;">
-                                <button id="oksource" disabled="true" class="btn btn-secondary"
-                                        style="height: 35px;width: 100%;" onclick="fileConfirmed()">OK
+                                <button id="oksource" class="btn btn-secondary"
+                                        style="height: 35px;width: 100%;" onclick="fileConfirmed()" disabled>OK
                                 </button>
                             </div>
                         </div>
@@ -126,7 +129,7 @@
             <div class="column" align="right" style="width: 50%;">
                 <button id="previewbutton" class="btn btn-info"
                         style="width: auto; height: 100%; background-color: #00AAFF;"
-                        onclick="$('#previewdiv').toggle()" disabled="true">Toggle Preview
+                        onclick="$('#previewdiv').toggle()" disabled>Toggle Preview
                 </button>
             </div>
         </div>
@@ -155,18 +158,15 @@
                     </div>
                 </div>
                 <div class="row" style="margin-left: 8px; margin-top: 8px; width: 100%">
+     	  	       		<label>1: Choose Frost-Server: <div class="far fa-question-circle" data-toggle="tooltip" data-placement="top" title="Specify
+                            the url of the FROSTServer."></div></label>
 
-
-     	  	       		<label>1: Choose Frost-Server:</label>
-
-       	                <div class="far fa-question-circle" data-toggle="tooltip" data-placement="top" title="Specify
-       	                the url of the FROSTServer."></div>
            	            <br>
 
            	            <div style="width:100%">
            	            <div class="column" style="width: 70%">
                  			<input type="text" id="frostserverurl" value="" style="margin-top: 2px; width: 95%"
-                 			placeholder="https://frost.server.de/v1.0/"></input>
+                 			placeholder="https://frost.server.de/v1.0/">
                  		</div>
 
                  		<div class="column" style="width: 30%">
@@ -180,14 +180,7 @@
                  			</div>
                  		</div>
                  		</div>
-
-
-
                  </div>
-
-
-
-
 
                  <div class="topspace" style="height: 20px"></div>
 
@@ -227,15 +220,13 @@
                              save if a value should be replaced with an other
                                     value."></div>
                             <br>
-                            <button class="btn btn-secondary" value="mapping.html"
-                                    onclick="showMappingModal()"> Show Mapping
-                            </button>
+                            <button class="btn btn-secondary" onclick="showMappingModal()" value="mapping.html"> Show Mapping </button>
                         </div>
                     </div>
                     <div class="column" style="width: 50%">
 
                         <!-- DateTime -->
-                        <div class="row" style="padding: 10px">
+                        <div class="row g-0">
                             <label>5: DateTime:</label>
                             <br>
                             <label>Timezone:</label>
@@ -337,12 +328,11 @@
                                 <option data-value="12" value="UTC+12h - International Date Line East"></option>
                             </datalist>
                             -->
-
                         </div>
 
                         <div class="row topspace">
-                                <div class="table-responsive">
-                                    <table class="table fixed_header" id="timeTable" style="width: 400px;">
+                                <div class="table">
+                                    <table class="table" id="timeTable" style="width: 400px;">
                                         <thead>
                                         <tr>
                                             <th>
@@ -372,7 +362,7 @@
                                                     </div>
                                                 </div>
                                             </th>
-                                            <th style="width: 60px; padding:0px">
+                                            <th style="width: 60px">
                                                 <div>
                                                     <button class="btn btn-secondary" style="width: auto"
                                                             onclick="addRow($('#timeTable'),'2','20'); optimzeforsource();"><span
@@ -401,7 +391,7 @@
                 </div>
 
                 <!--start of config part 2 -->
-                <div id="thingbox" style="display: none">
+                <div id="thingbox" style="display: none; padding-left: 10px; margin-left: 8px">
                     <!--Thing-->
                     <label>6: Thing:</label><br>
                     <select class="select2" id="things" style="width: 200px">
@@ -413,7 +403,7 @@
                 </div>
 
                 <!-- start of config part 3 -->
-                <div id="streambox" style="display: none">
+                <div id="streambox" style="display: none; margin-left: 8px">
                     <!-- Start of Datastream-->
                     <div class="row" style="height: 50px"></div>
                     <div class="row" style="padding: 10px">
@@ -486,14 +476,14 @@
             <div class="row" style="padding-left: 20px; width: 100%">
                 <div class="column" align="left" style="width: 50%;">
                     <button id="importbutton" class="btn btn-secondary" onclick="importData()" style="margin-right: 20px"
-                            disabled="true">Import Data
+                            disabled>Import Data
                     </button>
                     <button class="btn btn-secondary"
                             onclick="showReturnModal()"
                             style="margin-right: 20px">Get Skipped Rows
                     </button>
                 </div>
-                <progress id="progress" value="0" max="100" style="width: 300px; height: 30px">
+                <progress id="progress" value="0" max="100" style="width: 300px; height: 30px; align-self: center;">
                 </progress>
                 <div class="column" align="right" style="width: 50%">
                 </div>
@@ -534,13 +524,12 @@
             </div>
             <div class="modal-footer" id="indexfooter">
                 <button type="button" class="btn btn-secondary" onclick="createThing()"></button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<script src="js/bootstrap-notify.js"></script>
 <script src="js/returnRows.js"></script>
 <script src="js/ChooseSource.js"></script>
 <script src="js/MainWindow.js"></script>

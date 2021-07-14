@@ -6,32 +6,34 @@ var mappingData = []; // the current mapping is stored here
  */
 function saveMapping() {
 	var obj = [];
+	valid = true;
 	$("#mappingTable").find("tbody tr").each(function() {
-		obj.push({
-			column : $(this).find("td:eq(0) input").val(),
-			first : $(this).find("td:eq(1) input").val(),
-			second : $(this).find("td:eq(2) input").val()
-		});
-	});
-
-	mappingData = Array.from(obj);
-
-	$.notify({
-		message : "Mapping saved."
-	}, {
-		allow_dismiss : true,
-		type : "info",
-		placement : {
-			from : "top",
-			align : "left"
-		},
-		animate : {
-			enter : "animated fadeInDown",
-			exit : "animated fadeOutUp"
+		column = $(this).find("td:eq(0) input").val()
+		if (isNaN(column) || column < 0 || column == "") {
+			polipop.add({
+				type: 'error',
+				content: 'At least one Column Number is invalid'
+			});
+			valid = false;
+			return false;
 		}
+		if(valid) {
+			obj.push({
+				column : $(this).find("td:eq(0) input").val(),
+				first : $(this).find("td:eq(1) input").val(),
+				second : $(this).find("td:eq(2) input").val()
+			});
+	    };
 	});
-	addToLog("Mapping saved.");
-	closeModal("dialog");
+	if(valid) {
+		mappingData = Array.from(obj);
+		polipop.add({
+			type: 'success',
+			content: 'Mapping saved.'
+		});
+		addToLog("Mapping saved.");
+		closeModal("dialog");
+	};
 }
 
 /**
@@ -65,13 +67,12 @@ function mapAddRow(tableId, size1, size2, size3) {
 									"text"))).append(
 					$("<td>").append(
 							$("<input>").attr("size", size3).attr("type",
-									"text")))
-
-			.append(
-					$("<button>").attr("class", "btn btn-secondary").attr(
-							"onclick", "removeMapping(this.parentNode)").attr(
-							"style", "width:auto").html(
-							"<span class='fas fa-minus'></span>")));
+									"text"))).append(
+					$("<td>").append(
+							$("<button>").attr("class", "btn btn-secondary").attr(
+								"onclick", "removeMapping(this)").attr(
+								"style", "height: 100%; width:auto").html(
+								"<span class='fas fa-trash-alt' style='height: 100%; width:auto'></span>"))));
 }
 
 /**
@@ -106,5 +107,5 @@ function loadMapping() {
  *            the row of the mapping
  */
 function removeMapping(mapping) {
-	mapping.parentNode.removeChild(mapping);
+	$(mapping).parents("tr").remove();
 }

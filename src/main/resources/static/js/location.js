@@ -9,7 +9,10 @@ function createLocation() {
 
 	if (url === "") {
 		addToLog("FROST-URL can't be empty");
-		alert("FROST-URL can't be empty");
+		polipop.add({
+			type: 'error',
+			content: 'FROST-URL can\'t be empty'
+		});
 
 	} else {
 
@@ -25,6 +28,20 @@ function createLocation() {
 			string : url
 		};
 
+		if (myloc.name == null || myloc.name == "") {
+			polipop.add({
+				type: 'error',
+				content: 'Location could not be created, Name is invalid'
+			});
+			return false;
+		}
+		if (myloc.location == null || myloc.location == "") {
+			polipop.add({
+				type: 'error',
+				content: 'Location could not be created, Coordinates are invalid'
+			});
+			return false;
+		}
 		$
 				.ajax({
 					type : "POST",
@@ -33,40 +50,16 @@ function createLocation() {
 					contentType : "application/json",
 					data : JSON.stringify(mydata),
 					error : function(e) {
-						$
-								.notify(
-										{
-											message : "Location could not be created, check the Log for errors"
-										}, {
-											allow_dismiss : true,
-											type : "danger",
-											placement : {
-												from : "top",
-												align : "left"
-											},
-											animate : {
-												enter : "animated fadeInDown",
-												exit : "animated fadeOutUp"
-											},
-											z_index : 9000
-										});
+						polipop.add({
+							type: 'error',
+							content: 'Location could not be created, check the Log for errors'
+						});	
 						addToLog(e.responseText);
 					},
 					success : function(e) {
-						$.notify({
-							message : "Location created."
-						}, {
-							allow_dismiss : true,
-							type : "info",
-							placement : {
-								from : "top",
-								align : "left"
-							},
-							animate : {
-								enter : "animated fadeInDown",
-								exit : "animated fadeOutUp"
-							},
-							z_index : 9000
+						polipop.add({
+							type: 'success',
+							content: 'Location created.'
 						});
 						addToLog("Location created.");
 						closeModal("thingdialog");

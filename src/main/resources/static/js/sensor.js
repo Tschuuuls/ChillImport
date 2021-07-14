@@ -18,6 +18,7 @@ function initSensor() {
 		data : data,
 		placeholder : "Choose an encoding type",
 		width : "style",
+		dropdownParent: $('#dsdialog'),
 		dropdownAutoWidth : true
 	});
 }
@@ -28,7 +29,10 @@ function createSensor() {
 	var desc = $("#sendescription").val();
 	var encType = $("#senEncTypes").val();
 	if (!encType || encType === "") {
-		alert("Choose an encryption type.");
+		polipop.add({
+			type: 'error',
+			content: 'Encoding Type is invalid'
+		});
 		return false;
 	}
 	var meta = $("#senmeta").val();
@@ -45,6 +49,13 @@ function createSensor() {
 		entity : mySensor,
 		string : url
 	};
+	if (name == null || name == "") {
+		polipop.add({
+			type: 'error',
+			content: 'Sensor could not be created, Name is invalid'
+		});
+		return false;
+	}
 	$
 			.ajax({
 				type : "POST",
@@ -53,40 +64,16 @@ function createSensor() {
 				contentType : "application/json",
 				data : JSON.stringify(mydata),
 				error : function(e) {
-					$
-							.notify(
-									{
-										message : "Sensor could not be created, check the Log for errors"
-									}, {
-										allow_dismiss : true,
-										type : "danger",
-										placement : {
-											from : "top",
-											align : "left"
-										},
-										animate : {
-											enter : "animated fadeInDown",
-											exit : "animated fadeOutUp"
-										},
-										z_index : 9000
-									});
+					polipop.add({
+						type: 'error',
+						content: 'Sensor could not be created, check the Log for errors'
+					});
 					addToLog(e.responseText);
 				},
 				success : function(e) {
-					$.notify({
-						message : "Sensor created."
-					}, {
-						allow_dismiss : true,
-						type : "info",
-						placement : {
-							from : "top",
-							align : "left"
-						},
-						animate : {
-							enter : "animated fadeInDown",
-							exit : "animated fadeOutUp"
-						},
-						z_index : 9000
+					polipop.add({
+						type: 'success',
+						content: 'Sensor created.'
 					});
 					addToLog("Sensor created.");
 					closeModal("dsdialog");

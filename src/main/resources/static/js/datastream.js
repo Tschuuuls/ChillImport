@@ -34,6 +34,7 @@ function getSensors() {
 			list.select2({
 				placeholder : "Choose a sensor",
 				width : "style",
+				dropdownParent: $('#dialog'),
 				dropdownAutoWidth : true
 			}).trigger("change");
 		},
@@ -87,7 +88,14 @@ function getOprops() {
 }
 
 function getSensor() {
-	return JSON.parse($("#streamsensors option:selected").attr("data-value"));
+	selectedSensor = $("#streamsensors option:selected").attr("data-value");
+	if (selectedSensor == null || selectedSensor == "") {
+		polipop.add({
+			type: 'error',
+			content: 'Please select a valid Sensor, or create one'
+		});
+	}
+	return JSON.parse(selectedSensor);
 }
 
 function createDS() {
@@ -95,15 +103,43 @@ function createDS() {
 	var $rows = $("#streamUnits").find("tbody tr");
 	var types = [], units = [], props = [], obj;
 	for (var i = 0; i < $rows.length; i++) {
-		types
-				.push($rows.eq(i).find(".selectStreamType option:selected")
-						.text());
-		props.push(JSON.parse($rows.eq(i).find(
-				".selectProperties option:selected").attr("data-value")));
+		selectedType = $rows.eq(i).find(".selectStreamType option:selected").text();
+		if (selectedType == null || selectedType == "") {
+			polipop.add({
+				type: 'error',
+				content: 'Datastream could not be created, at least one Observaton Type is invalid'
+			});
+			return false;
+		}
+		types.push(selectedType);
+		selectedProp = $rows.eq(i).find(
+			".selectProperties option:selected").attr("data-value");	
+		if(selectedProp == null || selectedProp == "") {
+			polipop.add({
+				type: 'error',
+				content: 'Datastream could not be created, at least one Observed Property is invalid'
+			});
+			return false;
+		}
+		props.push(JSON.parse(selectedProp));
 		obj = {};
 		obj["definition"] = $rows.eq(i).find("td:eq(4) input").val();
 		obj["name"] = $rows.eq(i).find("td:eq(2) input").val();
 		obj["symbol"] = $rows.eq(i).find("td:eq(3) input").val();
+		if (obj.name == null || obj.name == "") {
+			polipop.add({
+				type: 'error',
+				content: 'Datastream could not be created, at least one Unit name is invalid'
+			});
+			return false;
+		}
+		if (obj.symbol == null || obj.symbol == "") {
+			polipop.add({
+				type: 'error',
+				content: 'Datastream could not be created, at least one Unit symbol is invalid'
+			});
+			return false;
+		}
 		units.push(obj);
 	}
 
@@ -118,6 +154,27 @@ function createDS() {
 		thing : thing
 	};
 
+	if (myDS.name == null || myDS.name == "") {
+		polipop.add({
+			type: 'error',
+			content: 'Datastream could not be created, Name is invalid'
+		});
+		return false;
+	}
+	if (myDS.observation_types.includes(undefined) || myDS.observation_types.includes(null)) {
+		polipop.add({
+			type: 'error',
+			content: 'Datastream could not be created, at least one Observation Type is invalid'
+		});
+		return false;
+	}
+	if (myDS.observedProperties.includes(undefined) || myDS.observedProperties.includes(null)) {
+		polipop.add({
+			type: 'error',
+			content: 'Datastream could not be created, at least one Observed Property is invalid'
+		});
+		return false;
+	}
 	var url = document.getElementById("serverurlbox").innerText;
 
 	var mydata = {
@@ -133,38 +190,16 @@ function createDS() {
 				contentType : "application/json",
 				data : JSON.stringify(mydata),
 				error : function(response) {
-					$
-							.notify(
-									{
-										message : "Datastream could not be created, check the Log for errors"
-									}, {
-										allow_dismiss : true,
-										type : "danger",
-										placement : {
-											from : "top",
-											align : "left"
-										},
-										animate : {
-											enter : "animated fadeInDown",
-											exit : "animated fadeOutUp"
-										}
-									});
+					polipop.add({
+						type: 'error',
+						content: 'Datastream could not be created, check the Log for errors'
+					});
 					addToLog(response.responseText);
 				},
 				success : function(e) {
-					$.notify({
-						message : "Datastream created."
-					}, {
-						allow_dismiss : true,
-						type : "info",
-						placement : {
-							from : "top",
-							align : "left"
-						},
-						animate : {
-							enter : "animated fadeInDown",
-							exit : "animated fadeOutUp"
-						}
+					polipop.add({
+						type: 'success',
+						content: 'Datastream created'
 					});
 					addToLog("Datastream created.");
 					closeModal("dialog");
@@ -256,6 +291,7 @@ function addUnit() {
 		data : streamProperties,
 		placeholder : "Choose a Property",
 		width : "style",
+		dropdownParent: $('#dialog'),
 		dropdownAutoWidth : true
 	}).trigger("change").on(
 			"select2:select",
@@ -268,6 +304,7 @@ function addUnit() {
 		data : streamTypes,
 		placeholder : "Choose a datatype",
 		width : "style",
+		dropdownParent: $('#dialog'),
 		dropdownAutoWidth : true
 	}).trigger("change").on(
 			"select2:select",

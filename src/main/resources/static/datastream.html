@@ -5,57 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a new Datastream.</title>
 </head>
-<body style="overflow: hidden">
-<div>
+<body>
+<div class="container align-items-left">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm">
             Thing:
         </div>
-        <div class="col-sm-4">
+        <div class="col-auto">
             <label id="strlabel" style="width: 200px"></label>
         </div>
+        <div class="col"></div>
     </div>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm">
             Name:
         </div>
-        <div class="col-sm-4">
+        <div class="col-auto">
             <input id="streamname" type="text" style="width: 200px">
         </div>
+        <div class="col"></div>
     </div>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm">
             Description:
         </div>
-        <div class="col-sm-4">
+        <div class="col-auto">
             <input id="streamdesc" type="text" style="width: 200px">
         </div>
+        <div class="col"></div>
     </div>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm">
             Sensor:
         </div>
-        <div class="col-sm-2">
+        <div class="col-auto">
             <select id="streamsensors" style="width: 200px">
             </select>
         </div>
-        <div class="col-sm-3">
+        <div class="col">
             <button type="button" class="btn btn-secondary" style="width: auto" value="sensor.html"
                     onclick="showSensorModal(this.value)">
-                <span class="far fa-file"></span> Create a new Sensor
+                <span class="far fa-file"></span> Create new Sensor
             </button>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12 topspace">
-            Units of Measurement
+            Units of Measurement:
         </div>
     </div>
-    <div class="row topspace" style="height: 190px">
-        <div class="col-sm-8">
-            <div class="table-container" style="height: 160px">
-                <div></div>
-                <table class="table fixed_header" id="streamUnits">
+    <div class="row">
+        <div class="col">
+            <div class="table-container" style="overflow: auto;">
+                <table class="table" style="max-width: none; table-layout: fixed; word-wrap: break-word;" id="streamUnits">
                     <thead>
                     <tr>
                         <th style="width:160px">
@@ -74,10 +76,9 @@
                             <div>Unit definition</div>
                         </th>
                         <th>
-                            <div>
-                                <button class="btn btn-secondary" style="width: auto" onclick="addUnit()"><span
-                                        class="fas fa-plus"></span></button>
-                            </div>
+                            <div style="width: auto;"><button class="btn btn-secondary" style="height: 100%; width: auto;" onclick="addUnit()">
+                                <span class="fas fa-plus"></span>
+                            </button></div>
                         </th>
                     </tr>
                     </thead>
@@ -86,31 +87,30 @@
                 </table>
             </div>
         </div>
-        <div class="col-sm-4" style="padding-left: 50px">
-            <button type="button" class="btn btn-secondary" value="obsprop.html" style="width: auto"
-                    onclick="showObsPropModal(this.value)">
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <button type="button" class="btn btn-secondary" value="obsprop.html" style="width: auto" onclick="showObsPropModal(this.value)">
                 <span class="far fa-file"></span> Create a new Observed Property
             </button>
         </div>
     </div>
+</div>
 
-    <div class="modal modal-wide fade" id="dsdialog" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #00AAFF">
-                    <b class="headertext" style="color: white; font-size: 20px"></b>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer" id="dsfooter">
-                    <button type="button" class="btn btn-secondary" onclick="createSensor()">Create Sensor</button>
-                    <button type="button" class="btn btn-secondary" onclick="$('#dsdialog').modal('hide');">Close</button>
-                </div>
+<div class="modal modal-wide fade" id="dsdialog" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #00AAFF">
+                <b class="headertext" style="color: white; font-size: 20px"></b>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer" id="dsfooter">
+                <button type="button" class="btn btn-secondary" onclick="createSensor()">Create Sensor</button>
+                <button type="button" class="btn btn-secondary" onclick="$('#dsdialog').modal('hide');">Close</button>
             </div>
         </div>
     </div>
-
-
 </div>
 </body>
 </html>
