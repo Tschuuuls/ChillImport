@@ -3,27 +3,30 @@ function getLocations() {
   var url = document.getElementById("serverurlbox").innerText;
 
   var valid = false;
-  var mydata = {frostUrlString : url};
+  var mydata = { frostUrlString: url };
   if (url === "") {
     addToLog("FROST-URL can't be empty");
-    polipop.add({type : 'error', content : 'FROST-URL can\'t be empty'});
+    polipop.add({ type: "error", content: "FROST-URL can't be empty" });
     valid = false;
   } else {
     $.ajax({
-      type : "GET",
-      url : "location/all",
-      data : mydata,
-      success : function(response) {
+      type: "GET",
+      url: "location/all",
+      data: mydata,
+      success: function (response) {
         var json = JSON.stringify(response, null, 4);
         var jsonparsed = JSON.parse(json);
 
         var list = $("#locations");
         list.empty().append(new Option("", "", null, null));
 
-        jsonparsed.forEach(function(val) {
-          var option =
-              new Option(val.name + " (" + val.frostId + ")",
-                         val.name + " (" + val.frostId + ")", null, null);
+        jsonparsed.forEach(function (val) {
+          var option = new Option(
+            val.name + " (" + val.frostId + ")",
+            val.name + " (" + val.frostId + ")",
+            null,
+            null
+          );
           option.setAttribute("data-value", JSON.stringify(val, null, 4));
           list.append(option);
         });
@@ -38,25 +41,31 @@ function getLocations() {
         }
         */
 
-        list.select2({
-              placeholder : "Choose a location",
-              width : "style",
-              dropdownParent : $('#dialog'),
-              dropdownAutoWidth : true
-            })
-            .trigger("change");
+        list
+          .select2({
+            placeholder: "Choose a location",
+            width: "style",
+            dropdownParent: $("#dialog"),
+            dropdownAutoWidth: true,
+          })
+          .trigger("change");
       },
-      error : function(e) { addToLog(e.responseText); }
+      error: function (e) {
+        addToLog(e.responseText);
+      },
     });
   }
 }
 
 function createThing() {
   var $rows = $("#properties").find("tbody tr");
-  var props = {}, loc;
+  var props = {},
+    loc;
   for (var i = 0; i < $rows.length; i++) {
-    props[$rows.eq(i).find("td:eq(0) input").val()] =
-        $rows.eq(i).find("td:eq(1) input").val();
+    props[$rows.eq(i).find("td:eq(0) input").val()] = $rows
+      .eq(i)
+      .find("td:eq(1) input")
+      .val();
   }
 
   loc = $("#locations option:selected").attr("data-value");
@@ -64,43 +73,43 @@ function createThing() {
   if (loc == null) {
     addToLog("Invalid Location (Must exist on the server)");
     polipop.add({
-      type : 'error',
-      content : 'Invalid Location (Must exist on the server)'
+      type: "error",
+      content: "Invalid Location (Must exist on the server)",
     });
     return;
   }
   var url = document.getElementById("serverurlbox").innerText;
 
   var thing = {
-    name : $("#name").val(),
-    description : $("#desc").val(),
-    properties : props,
-    location : JSON.parse(loc)
+    name: $("#name").val(),
+    description: $("#desc").val(),
+    properties: props,
+    location: JSON.parse(loc),
   };
 
-  var mydata = {entity : thing, string : url};
+  var mydata = { entity: thing, string: url };
   if (thing.name == null || thing.name == "") {
     polipop.add({
-      type : 'error',
-      content : 'Thing could not be created, Name is invalid'
+      type: "error",
+      content: "Thing could not be created, Name is invalid",
     });
     return false;
   }
   $.ajax({
-    type : "POST",
-    url : "thing/create",
-    datatype : "json",
-    contentType : "application/json",
-    data : JSON.stringify(mydata),
-    error : function(e) {
+    type: "POST",
+    url: "thing/create",
+    datatype: "json",
+    contentType: "application/json",
+    data: JSON.stringify(mydata),
+    error: function (e) {
       polipop.add({
-        type : 'error',
-        content : 'Thing could not be created, check the Log for errors'
+        type: "error",
+        content: "Thing could not be created, check the Log for errors",
       });
       addToLog(e.responseText);
     },
-    success : function(e) {
-      polipop.add({type : 'success', content : 'Thing created.'});
+    success: function (e) {
+      polipop.add({ type: "success", content: "Thing created." });
       addToLog("Thing created");
       closeModal("dialog");
 
@@ -110,7 +119,7 @@ function createThing() {
 
       $("#things").append(option).trigger("change");
       $("#things").val(text).trigger("select2:select");
-    }
+    },
   });
 }
 
