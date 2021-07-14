@@ -152,6 +152,7 @@ public class HTMLController {
     File file = new File(FileManager.getLogPath() + File.separator +
                          "returnRows" + File.separator +
                          name.replaceAll("\\.\\.", "").replaceAll("/", ""));
+
     if (!file.delete()) {
       return new ResponseEntity("Could not delete File",
                                 HttpStatus.INTERNAL_SERVER_ERROR);

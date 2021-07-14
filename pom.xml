@@ -30,13 +30,13 @@
         <commons-io.version>2.11.0</commons-io.version>
 
         <webjars-locator.version>0.41</webjars-locator.version>
-        <bootstrap.version>4.6.0-1</bootstrap.version>
+        <bootstrap.version>5.0.1</bootstrap.version>
         <jquery.version>3.6.0</jquery.version>
         <select2.version>4.0.13</select2.version>
         <fontawesome.version>5.15.3</fontawesome.version>
         <material-icons.version>0.7.0</material-icons.version>
         <popper.version>2.9.2</popper.version>
-        <polipop.version>1.0.0</polipop.version>
+        <awesome-notifications.version>3.1.1</awesome-notifications.version>
 
         <powermock.version>2.0.9</powermock.version>
         <testcontainers.version>1.15.3</testcontainers.version>
@@ -116,9 +116,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.webjars.bowergithub.minitek</groupId>
-            <artifactId>polipop</artifactId>
-            <version>${polipop.version}</version>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>awesome-notifications</artifactId>
+            <version>${awesome-notifications.version}</version>
         </dependency>
 
         <!-- Dev -->

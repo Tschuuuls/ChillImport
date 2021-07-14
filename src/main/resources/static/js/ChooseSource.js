@@ -36,10 +36,9 @@ function checkinputfile() {
  * checks the url of the source
  */
 function checkinputurl() {
-  var url = $("#sourceinput")
-    .val()
-    .toString();
-  var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  var url = $("#sourceinput").val().toString();
+  var pattern =
+    /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 
   if (pattern.test(url)) {
     isExcel = false;
@@ -85,23 +84,17 @@ function uploadFile() {
     processData: false,
     contentType: false,
     cache: false,
-    success: function(e) {
-      polipop.add({
-        type: 'success',
-        content: 'File has been uploaded'
-      });
+    success: function (e) {
+      notifier.success('File has been uploaded');
       currentFileName = e;
       $("#importbutton").prop("disabled", false);
       addToLog("Finished processing file. Ready for import.");
       preview();
     },
-    error: function(e) {
-      polipop.add({
-        type: 'error',
-        content: 'File could not be uploaded. Check Log for errors'
-      });
+    error: function (e) {
+      notifier.alert('File could not be uploaded. Check Log for errors');
       addToLog(e.responseText);
-    }
+    },
   });
 
   return false;
@@ -122,10 +115,10 @@ function loadPreview(values) {
 
   var current;
 
-  values.forEach(function(entry) {
+  values.forEach(function (entry) {
     tablebody.append($("<tr>"));
     current = tablebody.find("tr").last();
-    entry.forEach(function(val) {
+    entry.forEach(function (val) {
       current.append($("<td>").text(val));
     });
   });
@@ -145,16 +138,16 @@ function preview() {
     data: {
       filename: currentFileName,
       headerLines: currentHeaderLines,
-      delimiter: currentDelimiter
+      delimiter: currentDelimiter,
     },
-    success: function(result) {
+    success: function (result) {
       loadPreview(result);
       $("#previewbutton").prop("disabled", false);
     },
-    error: function(e) {
+    error: function (e) {
       addToLog(e.responseText);
       $("#previewbutton").prop("disabled", false);
-    }
+    },
   });
 }
 
@@ -163,23 +156,17 @@ function uploadUrl() {
     type: "POST",
     url: "uploadFromUrl",
     data: { url: $("#sourceinput").val() },
-    success: function(e) {
-      polipop.add({
-        type: 'success',
-        content: 'File has been uploaded'
-      });
+    success: function (e) {
+      notifier.success('File has been uploaded');
       currentFileName = e;
       $("#importbutton").prop("disabled", false);
       addToLog("Finished processing file. Ready for import.");
       preview();
     },
-    error: function(e) {
-      polipop.add({
-        type: 'error',
-        content: 'File could not be uploaded. Check Log for errors'
-      });
+    error: function (e) {
+      notifier.alert('File could not be uploaded. Check Log for errors');
       addToLog(e.responseText);
-    }
+    },
   });
 
   return false;
@@ -203,13 +190,10 @@ function excelconfig() {
 
   $("#timeTable")
     .find("tbody tr")
-    .each(function() {
+    .each(function () {
       var obj = {},
         $td = $(this).find("td");
-      obj["string"] = $td
-        .eq(1)
-        .find("input")
-        .attr("disabled", true);
+      obj["string"] = $td.eq(1).find("input").attr("disabled", true);
     });
 }
 
@@ -221,13 +205,10 @@ function csvconfig() {
 
   $("#timeTable")
     .find("tbody tr")
-    .each(function() {
+    .each(function () {
       var obj = {},
         $td = $(this).find("td");
-      obj["string"] = $td
-        .eq(1)
-        .find("input")
-        .attr("disabled", false);
+      obj["string"] = $td.eq(1).find("input").attr("disabled", false);
     });
 }
 

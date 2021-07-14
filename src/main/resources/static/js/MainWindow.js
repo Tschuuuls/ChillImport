@@ -35,7 +35,7 @@ function showMappingModal() {
   var $modal = $("#indexfooter").find("button:eq(0)");
   $modal.attr("onclick", "saveMapping()");
   $modal.html("Save Mapping");
-  $modal.modal({show:true});
+  $modal.modal({ show: true });
   modal("dialog", "mapping.html", loadMapping, "Current\xa0Mapping");
 }
 /**
@@ -68,9 +68,8 @@ function addToLog(msg) {
   showmessagetag();
 
   if (scrollToBottom) {
-    document.getElementById("log").scrollTop = document.getElementById(
-      "log"
-    ).scrollHeight;
+    document.getElementById("log").scrollTop =
+      document.getElementById("log").scrollHeight;
   }
 }
 
@@ -133,30 +132,21 @@ function saveConfig() {
         $td = $(this).find("td");
       currentInput = $td.eq(1).find("input").val();
       if ((currentInput == null || currentInput == "") && isExcel == false) {
-        polipop.add({
-          type: 'error',
-          content: 'Please specify the date format (no empty strings allowed)'
-        });
+        notifier.alert('Please specify the date format (no empty strings allowed)');
         stop = true;
         return false;
       }
       obj["string"] = currentInput;
       currentInput = $td.eq(0).find("input").val();
       if (currentInput == null || currentInput == "") {
-        polipop.add({
-          type: 'error',
-          content: 'Please specify the column where the date can be found (no empty field allowed) before saving the configuration'
-        });
+        notifier.alert('Please specify the column where the date can be found (no empty field allowed) before saving the configuration');
         stop = true;
         return false;
       }
       parsed = parseInt(currentInput, 10);
 
       if (!(currentInput == parsed) || parsed < 0) {
-        polipop.add({
-          type: 'error',
-          content: 'Please specify the column where the date can be found (must be a non-negative number) before saving the configuration'
-        });
+        notifier.alert('Please specify the column where the date can be found (must be a non-negative number) before saving the configuration');
         stop = true;
         return false;
       }
@@ -176,10 +166,7 @@ function saveConfig() {
         obs = [];
       currentInput = $(this).find("select option:selected").val();
       if (currentInput == null || currentInput == "") {
-        polipop.add({
-          type: 'error',
-          content: 'Please leave no datastream empty'
-        });
+        notifier.alert('Please leave no datastream empty');
         stop = true;
         return false;
       }
@@ -191,10 +178,7 @@ function saveConfig() {
         .each(function () {
           currentInput = $(this).find("td:eq(1) input").val();
           if (currentInput == null || currentInput == "") {
-            polipop.add({
-              type: 'error',
-              content: 'Please specify the column where the observations of each datastream can be found (no empty field allowed) before saving the configuration'
-            });
+            notifier.alert('Please specify the column where the observations of each datastream can be found (no empty field allowed) before saving the configuration');
             stop = true;
             return false;
           }
@@ -202,10 +186,7 @@ function saveConfig() {
           parsed = parseInt(currentInput, 10);
 
           if (!(currentInput == parsed) || parsed < 0) {
-            polipop.add({
-              type: 'error',
-              content: 'Please specify the column where the observations of each datastream can be found (must be a non-negative number) before saving the configuration'
-            });
+            notifier.alert('Please specify the column where the observations of each datastream can be found (must be a non-negative number) before saving the configuration');
             stop = true;
             return false;
           }
@@ -243,22 +224,13 @@ function saveConfig() {
   }
 
   if ($("#selecttime option:selected").attr("data-value") == null) {
-    polipop.add({
-      type: 'error',
-      content: 'Please choose a time zone before saving the configuration'
-    });
+    notifier.alert('Please choose a time zone before saving the configuration');
     return false;
   } else if (date.length == 0) {
-    polipop.add({
-      type: 'error',
-      content: 'Please specify where to find the date in your file before saving the configuration'
-    });
+    notifier.alert('Please specify where to find the date in your file before saving the configuration');
     return false;
   } else if (streams.length == 0) {
-    polipop.add({
-      type: 'error',
-      content: 'Please add a datastream before saving the configuration'
-    });
+    notifier.alert('Please add a datastream before saving the configuration');
     return false;
   }
 
@@ -300,10 +272,7 @@ function saveConfig() {
       var option = new Option(e.name, e.name, null, null);
       option.setAttribute("data-value", JSON.stringify(e, null, 4));
       $("#configs").append(option).val(e.name).trigger("change");
-      polipop.add({
-        type: 'success',
-        content: 'Configuration saved'
-      });
+      notifier.success('Configuration saved');
       addToLog("Configuration saved.");
     },
   });
@@ -667,29 +636,20 @@ function importData() {
         $td = $(this).find("td");
       currentInput = $td.eq(1).find("input").val();
       if ((currentInput === null || currentInput === "") && isExcel === false) {
-        polipop.add({
-          type: 'error',
-          content: 'Please specify the date format (no empty strings allowed)'
-        });
+        notifier.alert('Please specify the date format (no empty strings allowed)');
         stop = true;
         return false;
       }
       obj["string"] = currentInput;
       currentInput = $td.eq(0).find("input").val();
       if (currentInput === null || currentInput === "") {
-        polipop.add({
-          type: 'error',
-          content: 'Please specify the column where the date can be found (no empty field allowed) before importing data'
-        });
+        notifier.alert('Please specify the column where the date can be found (no empty field allowed) before importing data');
         stop = true;
         return false;
       }
       parsed = parseInt(currentInput, 10);
       if (!(currentInput == parsed) || parsed < 0) {
-        polipop.add({
-          type: 'error',
-          content: 'Please specify the column where the date can be found (must be a non-negative number) before importing data'
-        });
+        notifier.alert('Please specify the column where the date can be found (must be a non-negative number) before importing data');
         stop = true;
         return false;
       }
@@ -707,10 +667,7 @@ function importData() {
         obs = [];
       currentInput = $(this).find("select option:selected").val();
       if (currentInput == null || currentInput == "") {
-        polipop.add({
-          type: 'error',
-          content: 'Please leave no datastream empty'
-        });
+        notifier.alert('Please leave no datastream empty');
         stop = true;
         return false;
       }
@@ -722,10 +679,7 @@ function importData() {
         .each(function () {
           currentInput = $(this).find("td:eq(1) input").val();
           if (currentInput == null || currentInput == "") {
-            polipop.add({
-              type: 'error',
-              content: 'Please specify the column where the observations of each datastream can be found (no empty field allowed) before importing data'
-            });
+            notifier.alert('Please specify the column where the observations of each datastream can be found (no empty field allowed) before importing data');
             stop = true;
             return false;
           }
@@ -733,10 +687,7 @@ function importData() {
           parsed = parseInt(currentInput, 10);
 
           if (!(currentInput == parsed) || parsed < 0) {
-            polipop.add({
-              type: 'error',
-              content: 'Please specify the column where the observations of each datastream can be found (must be a non-negative number), before importing data'
-            });
+            notifier.alert('Please specify the column where the observations of each datastream can be found (must be a non-negative number), before importing data');
             stop = true;
             return false;
           }
@@ -789,28 +740,16 @@ function importData() {
   var jsoncfg = JSON.stringify(formData, null, 4);
   var mydata = { config: jsoncfg, filename: getCurrentFileName() };
   if ($("#selecttime option:selected").attr("data-value") === null) {
-    polipop.add({
-      type: 'error',
-      content: 'Please choose a time zone before importing data'
-    });
+    notifier.alert('Please choose a time zone before importing data');
     return false;
   } else if (date.length === 0) {
-    polipop.add({
-      type: 'error',
-      content: 'Please specify where to find the date in your file before importing data'
-    });
+    notifier.alert('Please specify where to find the date in your file before importing data');
     return false;
   } else if (streams.length === 0) {
-    polipop.add({
-      type: 'error',
-      content: 'Please add a datastream before importing data'
-    });
+    notifier.alert('Please add a datastream before importing data');
     return false;
   } else {
-    polipop.add({
-      type: 'info',
-      content: 'Import started'
-    });
+    notifier.info('Import started');
     addToLog("Import of File " + name + " started.");
     document.getElementById("progress").value = 0;
     id = setInterval(progress, initial);
@@ -820,16 +759,10 @@ function importData() {
       data: mydata,
       success: function (e) {
         addToLog(e);
-        polipop.add({
-          type: 'success',
-          content: 'Import finished'
-        });
+        notifier.success('Import finished');
       },
       error: function (e) {
-        polipop.add({
-          type: 'error',
-          content: 'Import failed. Check log for errors'
-        });
+        notifier.alert('Import failed. Check log for errors');
         addToLog(e.responseText);
         clearInterval(id);
       },
@@ -990,9 +923,8 @@ function toggleScroll() {
   } else {
     scrollToBottom = true;
     document.getElementById("scrollDown").innerText = "stop";
-    document.getElementById("log").scrollTop = document.getElementById(
-      "log"
-    ).scrollHeight;
+    document.getElementById("log").scrollTop =
+      document.getElementById("log").scrollHeight;
   }
 }
 var maximized = false;
@@ -1096,6 +1028,6 @@ function fileConfirmed() {
   openaccordion("chooseConfigAcc");
 }
 
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();   
+$(document).ready(function () {
+  $('[data-toggle="tooltip"]').tooltip();
 });
