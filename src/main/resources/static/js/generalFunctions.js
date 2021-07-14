@@ -38,20 +38,22 @@ function delLastRow(tableId) {
 
 function modal(id, url, fnc, text) {
     if (fnc) {
-        $("#" + id).find(".modal-body").load(url, function () {
-            $("#" + id).modal();
+        $("#" + id).find(".modal-body").load(url, function (){
+            $("#" + id).modal({keyboard: false});
+            $("#" + id).modal('show');
             fnc();
         });
     } else {
-        $("#" + id).find(".modal-body").load(url, function () {
-            $("#" + id).modal();
+        $("#" + id).find(".modal-body").load(url, function (){
+            $("#" + id).modal({keyboard: false});
+            $("#" + id).modal('show');
         });
     }
     $("#" + id).find(".headertext").text(text);
 }
 
 function closeModal(id) {
-    $("#" + id).modal("toggle");
+    $("#" + id).modal('toggle');
 }
 
 $(document).ready(function () {
@@ -73,3 +75,10 @@ $(document).ready(function () {
         dropdownAutoWidth: true
     });
 });
+//Notifications/Toasts
+var polipop = new Polipop('notifications', {
+    layout: 'popups',
+    insert: 'before',
+    pool: 5,
+    sticky: false,
+  });

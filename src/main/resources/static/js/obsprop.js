@@ -13,6 +13,13 @@ function createObsprop() {
 
 	var url = document.getElementById("serverurlbox").innerText;
 
+	if (myOP.name == null || myOP.name == "") {
+		polipop.add({
+			type: 'error',
+			content: 'Observed Property could not be created, name is invalid'
+		});
+		return false;
+	}
 	var mydata = {
 		entity : myOP,
 		string : url
@@ -27,40 +34,16 @@ function createObsprop() {
 				contentType : "application/json",
 				data : JSON.stringify(mydata),
 				error : function(e) {
-					$
-							.notify(
-									{
-										message : "Observed Property could not be created, check the Log for errors"
-									}, {
-										allow_dismiss : true,
-										type : "danger",
-										placement : {
-											from : "top",
-											align : "left"
-										},
-										animate : {
-											enter : "animated fadeInDown",
-											exit : "animated fadeOutUp"
-										},
-										z_index : 9000
-									});
+					polipop.add({
+						type: 'error',
+						content: 'Observed Property could not be created, check the Log for errors'
+					});
 					addToLog(e.responseText);
 				},
 				success : function(e) {
-					$.notify({
-						message : "Observed Property created."
-					}, {
-						allow_dismiss : true,
-						type : "info",
-						placement : {
-							from : "top",
-							align : "left"
-						},
-						animate : {
-							enter : "animated fadeInDown",
-							exit : "animated fadeOutUp"
-						},
-						z_index : 9000
+					polipop.add({
+						type: 'success',
+						content: 'Observed Property created'
 					});
 					addToLog("Observed Property created.");
 					closeModal("dsdialog");

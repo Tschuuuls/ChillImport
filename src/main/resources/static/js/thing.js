@@ -8,7 +8,10 @@ function getLocations() {
 	};
 	if (url === "") {
 		addToLog("FROST-URL can't be empty");
-		alert("FROST-URL can't be empty");
+		polipop.add({
+			type: 'error',
+			content: 'FROST-URL can\'t be empty'
+		});
 		valid = false;
 	} else {
 		$.ajax({
@@ -44,6 +47,7 @@ function getLocations() {
 				list.select2({
 					placeholder : "Choose a location",
 					width : "style",
+					dropdownParent: $('#dialog'),
 					dropdownAutoWidth : true
 				}).trigger("change");
 			},
@@ -65,9 +69,12 @@ function createThing() {
 
 	loc = $("#locations option:selected").attr("data-value");
 
-	if (loc === null) {
+	if (loc == null) {
 		addToLog("Invalid Location (Must exist on the server)");
-		alert("Invalid Location (Must exist on the server)");
+		polipop.add({
+			type: 'error',
+			content: 'Invalid Location (Must exist on the server)'
+		});
 		return;
 	}
 	var url = document.getElementById("serverurlbox").innerText;
@@ -83,7 +90,13 @@ function createThing() {
 		entity : thing,
 		string : url
 	};
-
+	if (thing.name == null || thing.name == "") {
+		polipop.add({
+			type: 'error',
+			content: 'Thing could not be created, Name is invalid'
+		});
+		return false;
+	}
 	$
 			.ajax({
 				type : "POST",
@@ -92,39 +105,16 @@ function createThing() {
 				contentType : "application/json",
 				data : JSON.stringify(mydata),
 				error : function(e) {
-					$
-							.notify(
-									{
-										message : "Thing could not be created, check the Log for errors"
-									}, {
-										allow_dismiss : true,
-										type : "danger",
-										placement : {
-											from : "top",
-											align : "left"
-										},
-										animate : {
-											enter : "animated fadeInDown",
-											exit : "animated fadeOutUp"
-										},
-										z_index : 9000
-									});
+					polipop.add({
+						type: 'error',
+						content: 'Thing could not be created, check the Log for errors'
+					});
 					addToLog(e.responseText);
 				},
 				success : function(e) {
-					$.notify({
-						message : "Thing created."
-					}, {
-						allow_dismiss : true,
-						type : "info",
-						placement : {
-							from : "top",
-							align : "left"
-						},
-						animate : {
-							enter : "animated fadeInDown",
-							exit : "animated fadeOutUp"
-						}
+					polipop.add({
+						type: 'success',
+						content: 'Thing created.'
 					});
 					addToLog("Thing created");
 					closeModal("dialog");

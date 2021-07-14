@@ -53,21 +53,21 @@ function checkinputurl() {
 }
 
 function sourcefile() {
-  document.getElementById("sourcetext").innerText = "Choose sourcefile:";
+  document.getElementById("sourcetext").innerText = "Choose Source File:";
   $("#sourceinput").hide();
   $("#file").show();
   checkinputfile();
 }
 
 function sourcesite() {
-  document.getElementById("sourcetext").innerText = "Choose website:";
+  document.getElementById("sourcetext").innerText = "Choose Website:";
   $("#sourceinput").show();
   $("#file").hide();
   checkinputurl();
 }
 
 function sourceserver() {
-  document.getElementById("sourcetext").innerText = "Choose server:";
+  document.getElementById("sourcetext").innerText = "Choose Server:";
   $("#sourceinput").show();
   $("#file").hide();
 }
@@ -86,32 +86,20 @@ function uploadFile() {
     contentType: false,
     cache: false,
     success: function(e) {
-      $.notify(
-        { message: "File has been uploaded" },
-        {
-          allow_dismiss: true,
-          type: "success",
-          placement: { from: "top", align: "left" },
-          animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" },
-          z_index: 9000
-        }
-      );
+      polipop.add({
+        type: 'success',
+        content: 'File has been uploaded'
+      });
       currentFileName = e;
       $("#importbutton").prop("disabled", false);
       addToLog("Finished processing file. Ready for import.");
       preview();
     },
     error: function(e) {
-      $.notify(
-        { message: "File could not be uploaded. Check Log for errors" },
-        {
-          allow_dismiss: true,
-          type: "danger",
-          placement: { from: "top", align: "left" },
-          animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" },
-          z_index: 9000
-        }
-      );
+      polipop.add({
+        type: 'error',
+        content: 'File could not be uploaded. Check Log for errors'
+      });
       addToLog(e.responseText);
     }
   });
@@ -176,32 +164,20 @@ function uploadUrl() {
     url: "uploadFromUrl",
     data: { url: $("#sourceinput").val() },
     success: function(e) {
-      $.notify(
-        { message: "File has been uploaded" },
-        {
-          allow_dismiss: true,
-          type: "success",
-          placement: { from: "top", align: "left" },
-          animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" },
-          z_index: 9000
-        }
-      );
+      polipop.add({
+        type: 'success',
+        content: 'File has been uploaded'
+      });
       currentFileName = e;
       $("#importbutton").prop("disabled", false);
       addToLog("Finished processing file. Ready for import.");
       preview();
     },
     error: function(e) {
-      $.notify(
-        { message: "File could not be uploaded. Check Log for errors" },
-        {
-          allow_dismiss: true,
-          type: "danger",
-          placement: { from: "top", align: "left" },
-          animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" },
-          z_index: 9000
-        }
-      );
+      polipop.add({
+        type: 'error',
+        content: 'File could not be uploaded. Check Log for errors'
+      });
       addToLog(e.responseText);
     }
   });

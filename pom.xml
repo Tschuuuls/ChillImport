@@ -35,7 +35,8 @@
         <select2.version>4.0.13</select2.version>
         <fontawesome.version>5.15.3</fontawesome.version>
         <material-icons.version>0.7.0</material-icons.version>
-        <popper.version>1.16.1-lts</popper.version>
+        <popper.version>2.9.2</popper.version>
+        <polipop.version>1.0.0</polipop.version>
 
         <powermock.version>2.0.9</powermock.version>
         <testcontainers.version>1.15.3</testcontainers.version>
@@ -112,6 +113,12 @@
             <groupId>org.webjars</groupId>
             <artifactId>popper.js</artifactId>
             <version>${popper.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bowergithub.minitek</groupId>
+            <artifactId>polipop</artifactId>
+            <version>${polipop.version}</version>
         </dependency>
 
         <!-- Dev -->
