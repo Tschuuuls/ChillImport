@@ -126,6 +126,7 @@ public class FileManager {
       Files.deleteIfExists(Paths.get(
           getFilesPath().toString() + sep +
           randomFilename.replaceAll("\\.\\.", "").replaceAll("/", "")));
+
     } catch (IOException e) {
       // Der Fehler wird später noch eine Exception werfen also kan man hier
       // ignorieren
@@ -211,8 +212,8 @@ public class FileManager {
     try {
       if (FILES_PATH == null) {
         FILES_PATH = Files.createTempDirectory("tempuploads_");
-        // FILES_PATH.toFile().deleteOnExit(); //TODO: Delete directories on
-        // exit
+        
+        // FILES_PATH.toFile().deleteOnExit(); //TODO: Delete directories on exit
       }
     } catch (IOException e) {
       LogManager.getInstance().writeToLog(
