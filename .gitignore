@@ -25,6 +25,9 @@ server/target/
 /nbdist/
 /.nb-gradle/
 
+### VSCODE ###
+/.vscode/
+
 ### Test ###
 /src/test/TempFolder/
 /tmpfile
