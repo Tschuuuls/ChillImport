@@ -36,10 +36,9 @@ function checkinputfile() {
  * checks the url of the source
  */
 function checkinputurl() {
-  var url = $("#sourceinput")
-    .val()
-    .toString();
-  var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  var url = $("#sourceinput").val().toString();
+  var pattern =
+    /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 
   if (pattern.test(url)) {
     isExcel = false;
@@ -53,21 +52,21 @@ function checkinputurl() {
 }
 
 function sourcefile() {
-  document.getElementById("sourcetext").innerText = "Choose sourcefile:";
+  document.getElementById("sourcetext").innerText = "Choose Source File:";
   $("#sourceinput").hide();
   $("#file").show();
   checkinputfile();
 }
 
 function sourcesite() {
-  document.getElementById("sourcetext").innerText = "Choose website:";
+  document.getElementById("sourcetext").innerText = "Choose Website:";
   $("#sourceinput").show();
   $("#file").hide();
   checkinputurl();
 }
 
 function sourceserver() {
-  document.getElementById("sourcetext").innerText = "Choose server:";
+  document.getElementById("sourcetext").innerText = "Choose Server:";
   $("#sourceinput").show();
   $("#file").hide();
 }
@@ -85,35 +84,17 @@ function uploadFile() {
     processData: false,
     contentType: false,
     cache: false,
-    success: function(e) {
-      $.notify(
-        { message: "File has been uploaded" },
-        {
-          allow_dismiss: true,
-          type: "success",
-          placement: { from: "top", align: "left" },
-          animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" },
-          z_index: 9000
-        }
-      );
+    success: function (e) {
+      notifier.success('File has been uploaded');
       currentFileName = e;
       $("#importbutton").prop("disabled", false);
       addToLog("Finished processing file. Ready for import.");
       preview();
     },
-    error: function(e) {
-      $.notify(
-        { message: "File could not be uploaded. Check Log for errors" },
-        {
-          allow_dismiss: true,
-          type: "danger",
-          placement: { from: "top", align: "left" },
-          animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" },
-          z_index: 9000
-        }
-      );
+    error: function (e) {
+      notifier.alert('File could not be uploaded. Check Log for errors');
       addToLog(e.responseText);
-    }
+    },
   });
 
   return false;
@@ -134,10 +115,10 @@ function loadPreview(values) {
 
   var current;
 
-  values.forEach(function(entry) {
+  values.forEach(function (entry) {
     tablebody.append($("<tr>"));
     current = tablebody.find("tr").last();
-    entry.forEach(function(val) {
+    entry.forEach(function (val) {
       current.append($("<td>").text(val));
     });
   });
@@ -157,16 +138,16 @@ function preview() {
     data: {
       filename: currentFileName,
       headerLines: currentHeaderLines,
-      delimiter: currentDelimiter
+      delimiter: currentDelimiter,
     },
-    success: function(result) {
+    success: function (result) {
       loadPreview(result);
       $("#previewbutton").prop("disabled", false);
     },
-    error: function(e) {
+    error: function (e) {
       addToLog(e.responseText);
       $("#previewbutton").prop("disabled", false);
-    }
+    },
   });
 }
 
@@ -175,35 +156,17 @@ function uploadUrl() {
     type: "POST",
     url: "uploadFromUrl",
     data: { url: $("#sourceinput").val() },
-    success: function(e) {
-      $.notify(
-        { message: "File has been uploaded" },
-        {
-          allow_dismiss: true,
-          type: "success",
-          placement: { from: "top", align: "left" },
-          animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" },
-          z_index: 9000
-        }
-      );
+    success: function (e) {
+      notifier.success('File has been uploaded');
       currentFileName = e;
       $("#importbutton").prop("disabled", false);
       addToLog("Finished processing file. Ready for import.");
       preview();
     },
-    error: function(e) {
-      $.notify(
-        { message: "File could not be uploaded. Check Log for errors" },
-        {
-          allow_dismiss: true,
-          type: "danger",
-          placement: { from: "top", align: "left" },
-          animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" },
-          z_index: 9000
-        }
-      );
+    error: function (e) {
+      notifier.alert('File could not be uploaded. Check Log for errors');
       addToLog(e.responseText);
-    }
+    },
   });
 
   return false;
@@ -227,13 +190,10 @@ function excelconfig() {
 
   $("#timeTable")
     .find("tbody tr")
-    .each(function() {
+    .each(function () {
       var obj = {},
         $td = $(this).find("td");
-      obj["string"] = $td
-        .eq(1)
-        .find("input")
-        .attr("disabled", true);
+      obj["string"] = $td.eq(1).find("input").attr("disabled", true);
     });
 }
 
@@ -245,13 +205,10 @@ function csvconfig() {
 
   $("#timeTable")
     .find("tbody tr")
-    .each(function() {
+    .each(function () {
       var obj = {},
         $td = $(this).find("td");
-      obj["string"] = $td
-        .eq(1)
-        .find("input")
-        .attr("disabled", false);
+      obj["string"] = $td.eq(1).find("input").attr("disabled", false);
     });
 }
 
