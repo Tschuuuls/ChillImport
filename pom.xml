@@ -26,7 +26,7 @@
         <docker.image.repository>fraunhoferiosb/chillimport</docker.image.repository>
 
         <frost-client.version>0.39</frost-client.version>
-        <poi-ooxml.version>5.0.0</poi-ooxml.version>
+        <poi-ooxml.version>5.1.0</poi-ooxml.version>
         <commons-io.version>2.11.0</commons-io.version>
 
         <webjars-locator.version>0.41</webjars-locator.version>
